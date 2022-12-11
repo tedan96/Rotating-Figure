@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+
+uniform mat4 instanceMatrix;
+uniform mat4 lightProjectionMatrix;
+uniform mat4 lightViewMatrix;
+
+void main()
+{
+
+
+    vec4 objLightPosition = lightProjectionMatrix*lightViewMatrix*instanceMatrix*vPosition;
+
+    gl_Position = objLightPosition;
+
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+void
+main()
+{
+    gl_FragColor =  vec4(1.0-gl_FragCoord.z, 1.0-gl_FragCoord.z, 1.0-gl_FragCoord.z , 1.0);
+
+}
+</script>
+
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="initShaders.js"></script>
+<script type="text/javascript" src="MV.js"></script>
+<script type="text/javascript" src="cube.js"></script>
+
+
+<body>
+    <div id="canvas">
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</div>
+
+<div id="button">
+    <button id = "ButtonX">X축 회전</button>
+    <button id = "ButtonY">Y축 회전</button>
+    <button id = "ButtonZ">Z축 회전</button>
+    <button id = "ButtonS">시작/정지</button>
+    </div>
+    <br>
+    <div id="select">
+    <select id="Controls" size="2">
+        <option value="0">빠르게</option>
+        <option value="1">느리게</option>
+    </select>
+</div>
+</body>
+<style>
+    #button{
+        text-align: center;
+    }
+    #select{
+        text-align: center;
+    }
+    #canvas{
+        text-align: center;
+    }
+</style>
+</html>
